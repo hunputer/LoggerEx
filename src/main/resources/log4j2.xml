@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <properties>
+        <property name="name">logTest</property>
+        <property name="pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} || %msg%n</property>
+        <property name="path">/Users/choejihun/Desktop/log</property>
+    </properties>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${pattern}"/>
+        </Console>
+        <!-- 로그파일 남길시 사용 -->
+        <RollingFile name="file"
+                     fileName="${path}/${name}_${date:yyyy}-${date:mm}-${date:dd}.log"
+                     filePattern="${path}/${name}_%d{yyyyMMdd}.log">
+            <PatternLayout>
+                <pattern>${pattern}</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy/><!-- Rotated everyday -->
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="egovframework.ECALL_O.main.web" level="INFO" additivity="FALSE">
+            <AppenderRef ref="console" />
+        </Logger>
+    </Loggers>
+</Configuration>
